@@ -18,7 +18,7 @@
         <?php
             // --- Configuration: Change these values to test all business rules! ---
             $size = 'XL'; // Options: 'S', 'M', 'L', 'XL'
-            $color = 'Camel'; // Any string, but test with 'Sunset Orange' or 'Ocean Blue'
+            $color = 'Sunset Orange'; // Any string, but test with 'Sunset Orange' or 'Ocean Blue'
             $isCustomized = true; // Options: true, false
             $customerFirstName = 'Keani'; // <-- IMPORTANT: REPLACE WITH YOUR ACTUAL FIRST NAME
 
@@ -63,8 +63,18 @@
 
             /*
             MY REFACTOR DEBUGGING REFLECTION: 
-            Issue: 
+            Issue: While testing the premium color rule, my total came out lower than I expected
+            and the "Premium Color" line never showed up in the receipt. When refactoring, I had initially set the color to
+            'ocean blue' instead of 'Ocean Blue'. The page didn't throw any error — it
+            just didn't register the upcharge, which made it confusing at first because nothing
+            looked like it was broken.
             Solution: 
+            I compared both URLs side by side and used the receipt's line items to narrow it down. 
+            Since the Premium Color line item was missing entirely, I knew the if-condition was evaluating to false rather than
+            the math being wrong. That pointed me at the comparison itself. I realized PHP's ==
+            compares strings character-for-character and is case-sensitive, so 'ocean blue' never
+            matched 'Ocean Blue'. Fixing the capitalization in my test config made the upcharge
+            apply correctly.
             */
 
             // --- DO NOT EDIT BELOW THIS LINE ---
