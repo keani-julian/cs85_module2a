@@ -32,7 +32,39 @@
             //     $finalPrice = $finalPrice + 1.75;
             //     $details .= "<li>Size (L) Upcharge: <span>+$1.75</span></li>";
             // }
-
+            
+            //nts: size upcharge
+            if ($size == 'XL') {
+                $finalPrice = $finalPrice + 2.50;
+                $details .= "<li>Size (XL) Upcharge: <span>+$2.50</span></li>";
+            }
+            if ($size == 'L') {
+                $finalPrice = $finalPrice + 1.75;
+                $details .= "<li>Size (L) Upcharge: <span>+$1.75</span></li>";
+            }
+            //nts: premium color upcharge
+                if ($color == 'Sunset Orange') {
+                $finalPrice = $finalPrice + 2.00;
+                $details .= "<li>Premium Color (Sunset Orange): <span>+$2.00</span></li>";
+            }
+            if ($color == 'Ocean Blue') {
+                $finalPrice = $finalPrice + 2.00;
+                $details .= "<li>Premium Color (Ocean Blue): <span>+$2.00</span></li>";
+            }
+            // nts: customization fee, with nested XL hanlding fee
+            if ($isCustomized) {
+                $finalPrice = $finalPrice + 5.00;
+                $details .= "<li>Customization Fee: <span>+$5.00</span></li>";
+                if ($size == 'XL') {
+                    $finalPrice = $finalPrice + 3.00;
+                    $details .= "<li>XL Handling Fee: <span>+$3.00</span></li>";
+                }
+            }
+            // nts: personalized discount for long name
+            if (strlen($customerFirstName) > 6) {
+                $finalPrice = $finalPrice - 1.00;
+                $details .= "<li>Long Name Discount: <span>-$1.00</span></li>";
+            }
 
             // --- DO NOT EDIT BELOW THIS LINE ---
             echo "<ul>" . $details . "</ul>";
